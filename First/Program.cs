@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Seance.Domain;
-
+using System.Collections;
+/*
 Console.WriteLine("Hello, World!");
 
 Person person = new Person();
@@ -26,4 +27,5 @@ Console.WriteLine(person3);
 
 Person etudiant= new Etudiant();
 person.GetMytype();
-etudiant.GetMytype();
+etudiant.GetMytype();*/
+
