@@ -51,6 +51,27 @@ namespace AM.ApplicationCore.Services
             }
         }
 
-        
+        public IList<DateTime> GetFlightDates (string destination) {
+            // var query = from f in ListFlights
+            //            where f.Destination == destination
+            //           select f.FlightDate;
+            //return query.ToList();
+            var query = ListFlights
+                .Where(f => f.Destination == destination)
+                .Select(f => f.FlightDate);
+            return query.ToList();
+
+
+        }
+
+  
+
+        public void ShowFlightDetails(Plane plane)
+        {
+            var query= from f in ListFlights
+                where (f.plane==plane)
+                       select new { f.FlightDate, f.Destination}
+
+        }
     }
 }

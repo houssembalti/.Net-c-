@@ -16,5 +16,12 @@ namespace AM.ApplicationCore.Interfaces
         // public void GetFlights(string filtertype, string filtervalue);
         public void GetFlights(string filtervalue, Func<string, Flight, Boolean> func);
 
+        public IList<DateTime> GetFlightDates(string destination);
+
+        public void ShowFlightDetails(Plane plane);
+
+        public int ProgrammedFlightNumber(DateTime startDate);
+
+        public float DurationAverage(string destination);
     }
 }
