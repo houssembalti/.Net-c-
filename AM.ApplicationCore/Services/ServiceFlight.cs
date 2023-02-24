@@ -68,10 +68,96 @@ namespace AM.ApplicationCore.Services
 
         public void ShowFlightDetails(Plane plane)
         {
-            var query= from f in ListFlights
-                where (f.plane==plane)
-                       select new { f.FlightDate, f.Destination}
+           /* var query = from f in ListFlights
+                        where (f.plane == plane)
+                        select new { f.FlightDate, f.Destination };
 
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.Destination + " " + item.FlightDate);
+            }*/
+
+            var req=ListFlights
+                .Where (f=>f.plane== plane)
+                .Select(f => new {f.Destination, f.FlightDate });
+
+            foreach (var item in req)
+            {
+                Console.WriteLine(item.Destination + "  " + item.FlightDate);
+            }
         }
+        public int ProgrammedFlightNumber(DateTime startDate)
+        {
+            // var query = from f in ListFlights
+            // where f.FlightDate > startDate && f.FlightDate < startDate.AddDays(7)
+            //    return query.Count();
+            return ListFlights
+             .Where(f => f.FlightDate > startDate &&( f.FlightDate - startDate).TotalDays<7) 
+                .Count();
+                        
+        }
+
+        public float DurationAverage(string destination)
+        {
+            //  var req = ListFlights
+            //    .Where(f => f.Destination == destination)
+            //   .Average(f=> f.EstimatedDuration)
+            //return req;
+
+            var query = from f in ListFlights
+                        where f.Destination == destination
+                        select f;
+
+            return query.Average(f => f.EstimatedDuration);
+
+
+            
+        }
+        public IList<Flight> OrderedDurationFlights()
+        {
+            //var query = from f in ListFlights
+            //          orderby f.EstimatedDuration descending
+            //        select f;
+            // return query.ToList();
+
+
+            var query = ListFlights
+               .OrderByDescending(f => f.EstimatedDuration)
+               .ToList();
+            return query;
+        }
+
+        public List<Traveller> SeniorTravellers(Flight flight)
+        {
+            var query =(from f in ListFlights
+                       where f.FlightId==flight.FlightId
+                       select f).Single();
+            return query.Passengers
+                .OfType<Traveller>().OrderBy(p => p.BirthDate).Take(3).ToList();
+
+
+                       
+        }
+        public IList<IGrouping<string,Flight>> DestinationGroupedFlights()
+        {
+            var req= ListFlights
+                .GroupBy(f => f.Destination).ToList();
+
+            foreach (var item in req)
+            {
+                Console.WriteLine("Destination: " + item.Key);
+                foreach (var item2 in item)
+                {
+                    Console.WriteLine("Décolage :" +item2.FlightDate);
+                }
+            }
+            return req;
+        }
+        Action<Plane> FlightDetailsDel;
+        Func<string,double> DurationAverageDel;
+        public ServiceFlight() { }
+
+
+
     }
 }
