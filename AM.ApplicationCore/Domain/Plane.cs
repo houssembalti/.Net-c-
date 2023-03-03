@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ namespace AM.ApplicationCore.Domain
         Airbus
     }
     public class Plane    {
+       
         public int Planeid { get; set; } //nomdeclasseid ( yaarefha clé)
+        [Range(1,int.MaxValue)]
         public int Capacity { get; set; }
         public DateTime ManufactureDate { get; set; }
         public  Planetype Planetyp { get; set; }

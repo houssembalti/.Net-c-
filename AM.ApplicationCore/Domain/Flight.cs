@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace AM.ApplicationCore.Domain
         public DateTime EffectiveArrival { get; set; }
 
         public float EstimatedDuration;
+        [ForeignKey("plane")]
         public Plane plane { get; set; }
         public List<Passenger> Passengers { get; set; }
 
