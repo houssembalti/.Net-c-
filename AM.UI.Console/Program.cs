@@ -4,7 +4,7 @@ using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Services;
 using System.Collections;
 using System.Collections.Generic;
-
+/*
 Plane plane = new Plane();
 plane.Capacity= 2000;
 plane.ManufactureDate=DateTime.Now;
@@ -61,3 +61,14 @@ service.GetFlights("Paris", delegate (string a, Flight flight)
 {
     return flight.Destination == a;
 });
+*/
+int x = 45;
+
+Console.WriteLine(x.Add(x));
+Passenger p = new Passenger()
+{
+    FirstName = "houssem",
+    LastName = "balti"
+};
+p.UpperFullName();
+Console.WriteLine(p); 

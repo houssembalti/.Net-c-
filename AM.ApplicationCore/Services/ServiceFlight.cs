@@ -12,11 +12,11 @@ namespace AM.ApplicationCore.Services
     {
         public List<Flight> ListFlights { get; set; } = new List<Flight>();
 
-        public List<DateTime> DateTimes (string d)
+        public List<DateTime> DateTimes(string d)
         {
             List<DateTime> list = new List<DateTime>();
 
-            for (int i=0;i<ListFlights.Count;i++)
+            for (int i = 0; i < ListFlights.Count; i++)
             {
                 if (ListFlights[i].Destination == d)
                 {
@@ -37,21 +37,21 @@ namespace AM.ApplicationCore.Services
             }
         }
 
-      
 
-        public void GetFlights (string filtervalue,Func<string,Flight,Boolean> func)
+
+        public void GetFlights(string filtervalue, Func<string, Flight, Boolean> func)
         {
-            Func<string,Flight,Boolean> condition = null;
+            Func<string, Flight, Boolean> condition = null;
             foreach (var item in ListFlights)
             {
-                if (condition(filtervalue,item))
+                if (condition(filtervalue, item))
                 {
                     Console.WriteLine(item);
                 }
             }
         }
 
-        public IList<DateTime> GetFlightDates (string destination) {
+        public IList<DateTime> GetFlightDates(string destination) {
             // var query = from f in ListFlights
             //            where f.Destination == destination
             //           select f.FlightDate;
@@ -64,22 +64,22 @@ namespace AM.ApplicationCore.Services
 
         }
 
-  
+
 
         public void ShowFlightDetails(Plane plane)
         {
-           /* var query = from f in ListFlights
-                        where (f.plane == plane)
-                        select new { f.FlightDate, f.Destination };
+            /* var query = from f in ListFlights
+                         where (f.plane == plane)
+                         select new { f.FlightDate, f.Destination };
 
-            foreach (var item in query)
-            {
-                Console.WriteLine(item.Destination + " " + item.FlightDate);
-            }*/
+             foreach (var item in query)
+             {
+                 Console.WriteLine(item.Destination + " " + item.FlightDate);
+             }*/
 
-            var req=ListFlights
-                .Where (f=>f.plane== plane)
-                .Select(f => new {f.Destination, f.FlightDate });
+            var req = ListFlights
+                .Where(f => f.plane == plane)
+                .Select(f => new { f.Destination, f.FlightDate });
 
             foreach (var item in req)
             {
@@ -92,9 +92,9 @@ namespace AM.ApplicationCore.Services
             // where f.FlightDate > startDate && f.FlightDate < startDate.AddDays(7)
             //    return query.Count();
             return ListFlights
-             .Where(f => f.FlightDate > startDate &&( f.FlightDate - startDate).TotalDays<7) 
+             .Where(f => f.FlightDate > startDate && (f.FlightDate - startDate).TotalDays < 7)
                 .Count();
-                        
+
         }
 
         public float DurationAverage(string destination)
@@ -111,7 +111,7 @@ namespace AM.ApplicationCore.Services
             return query.Average(f => f.EstimatedDuration);
 
 
-            
+
         }
         public IList<Flight> OrderedDurationFlights()
         {
@@ -129,18 +129,18 @@ namespace AM.ApplicationCore.Services
 
         public List<Traveller> SeniorTravellers(Flight flight)
         {
-            var query =(from f in ListFlights
-                       where f.FlightId==flight.FlightId
-                       select f).Single();
+            var query = (from f in ListFlights
+                         where f.FlightId == flight.FlightId
+                         select f).Single();
             return query.Passengers
                 .OfType<Traveller>().OrderBy(p => p.BirthDate).Take(3).ToList();
 
 
-                       
+
         }
-        public IList<IGrouping<string,Flight>> DestinationGroupedFlights()
+        public IList<IGrouping<string, Flight>> DestinationGroupedFlights()
         {
-            var req= ListFlights
+            var req = ListFlights
                 .GroupBy(f => f.Destination).ToList();
 
             foreach (var item in req)
@@ -148,15 +148,37 @@ namespace AM.ApplicationCore.Services
                 Console.WriteLine("Destination: " + item.Key);
                 foreach (var item2 in item)
                 {
-                    Console.WriteLine("Décolage :" +item2.FlightDate);
+                    Console.WriteLine("Décolage :" + item2.FlightDate);
                 }
             }
             return req;
         }
         Action<Plane> FlightDetailsDel;
-        Func<string,double> DurationAverageDel;
-        public ServiceFlight() { }
+        Func<string, float> DurationAverageDel;
+        public ServiceFlight() {
+            FlightDetailsDel = plane =>
+            {
+                var query = from f in ListFlights
+                            where (f.plane == plane)
+                            select new { f.FlightDate, f.Destination };
 
+                foreach (var item in query)
+                {
+                    Console.WriteLine(item.Destination + " " + item.FlightDate);
+                }
+
+            };
+
+                DurationAverageDel = destination =>
+        {
+            var req = ListFlights
+              .Where(f => f.Destination == destination)
+             .Average(f => f.EstimatedDuration);
+            return req;
+        };
+
+
+        }
 
 
     }
