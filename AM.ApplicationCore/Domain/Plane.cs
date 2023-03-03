@@ -12,7 +12,7 @@ namespace AM.ApplicationCore.Domain
         Airbus
     }
     public class Plane    {
-        public int Planeid { get; set; }
+        public int Planeid { get; set; } //nomdeclasseid ( yaarefha clé)
         public int Capacity { get; set; }
         public DateTime ManufactureDate { get; set; }
         public  Planetype Planetyp { get; set; }

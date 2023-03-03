@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ namespace AM.ApplicationCore.Domain
     public class Passenger
     {
         public DateTime BirthDate { get; set; }
-        public string Passportnumber { get; set; }
+        [Key]
+        public string ?Passportnumber { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Emailadress { get; set; }
             
         public string FirstName { get; set; }

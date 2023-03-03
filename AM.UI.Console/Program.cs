@@ -70,5 +70,5 @@ Passenger p = new Passenger()
     FirstName = "houssem",
     LastName = "balti"
 };
-p.UpperFullName();
+p.UpperFullName();  
 Console.WriteLine(p); 
