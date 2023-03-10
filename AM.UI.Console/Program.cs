@@ -65,10 +65,10 @@ service.GetFlights("Paris", delegate (string a, Flight flight)
 int x = 45;
 
 Console.WriteLine(x.Add(x));
-Passenger p = new Passenger()
-{
-    FirstName = "houssem",
-    LastName = "balti"
-};
-p.UpperFullName();  
-Console.WriteLine(p); 
+//Passenger p = new Passenger()
+//{
+//    FirstName = "houssem",
+//    LastName = "balti"
+//};
+//p.UpperFullName();  
+//Console.WriteLine(p); 

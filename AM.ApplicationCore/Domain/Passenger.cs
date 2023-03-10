@@ -16,10 +16,9 @@ namespace AM.ApplicationCore.Domain
         public string Passportnumber { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Emailadress { get; set; }
-        [MinLength(3,ErrorMessage = "les règles ne sont pas respectées"),MaxLength(25,ErrorMessage = "les règles ne sont pas respectées")]
-        public string FirstName { get; set; }
-        
-        public string LastName { get; set; }
+        //[MinLength(3,ErrorMessage = "les règles ne sont pas respectées"),MaxLength(25,ErrorMessage = "les règles ne sont pas respectées")]
+        public FullName fullname { get; set; }
+
         [MaxLength(8),MinLength(8)]
         public  int Telnumber { get; set; }
 
@@ -27,7 +26,7 @@ namespace AM.ApplicationCore.Domain
 
         public override string? ToString()
         {
-            return FirstName + ' ' + LastName ;
+            return fullname.FirstName + ' ' + fullname.LastName ;
         }
 
 
@@ -44,11 +43,11 @@ namespace AM.ApplicationCore.Domain
         {
             if (email == null)
             {
-              return (nom == FirstName && prenom == LastName);
+              return (nom == fullname.FirstName && prenom == fullname.LastName);
 
             }
             else
-                return (nom == FirstName && prenom == LastName && email == Emailadress);
+                return (nom == fullname.FirstName && prenom == fullname.LastName && email == Emailadress);
         }
 
         public virtual void  PassengerType()

@@ -12,8 +12,8 @@ namespace AM.ApplicationCore.Services
     {
         public static void UpperFullName(this Passenger p)
         {
-             p.FirstName=char.ToUpper(p.FirstName[0]) + p.FirstName.Substring(1);
-            p.LastName = char.ToUpper(p.LastName[0]) + p.LastName.Substring(1);
+             p.fullname.FirstName=char.ToUpper(p.fullname.FirstName[0]) + p.fullname.FirstName.Substring(1);
+            p.fullname.LastName = char.ToUpper(p.fullname.LastName[0]) + p.fullname.LastName.Substring(1);
 
             //valeur de p change 
         }

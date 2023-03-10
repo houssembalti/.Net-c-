@@ -1,4 +1,6 @@
-﻿using AM.ApplicationCore.Domain;
+﻿using AM.ApplicationCore.config;
+using AM.ApplicationCore.Domain;
+using AM.infrastructure.config;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,24 @@ namespace AM.infrastructure
         {
             optionsBuilder.UseSqlServer("data source = (localdb)\\mssqllocaldb ; initial catalog=Balti;integrated security=true"); // on peut ajouter username and password 
             
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //changing table name
+            modelBuilder.ApplyConfiguration(new FlightConfiguration());
+            modelBuilder.ApplyConfiguration(new PlaneConfiguration());
+            modelBuilder.ApplyConfiguration(new PassengerConfiguration());
+            //modelBuilder.Entity<Passenger>().Property(f => f.fullname.FirstName).HasColumnName("PassengerName")
+            //    .IsRequired()
+            //    .HasMaxLength(50)
+            //    .HasColumnType("varchar");
+        }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<String>().HaveColumnType("varchar").HaveMaxLength(50);
+            configurationBuilder.Properties<DateTime>().HaveColumnType("Date");
+            configurationBuilder.Properties<Double>().HavePrecision(2,3); //double becomes real auto
+
         }
     }
 }

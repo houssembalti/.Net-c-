@@ -20,7 +20,8 @@ namespace AM.ApplicationCore.Domain
 
         public float EstimatedDuration;
         [ForeignKey("plane")]
-        public Plane plane { get; set; }
+        public int? planefk { get; set; }
+        public Plane? plane { get; set; } //clé nullable 
         public List<Passenger> Passengers { get; set; }
 
 
