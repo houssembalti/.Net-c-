@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AM.ApplicationCore.Interfaces
 {
-    public interface IserviceFlight
+    public interface IserviceFlight:IService<Flight>
     {
 
         public List<DateTime> DateTimes(string d);

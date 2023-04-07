@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AM.ApplicationCore.Services
 {
-    public class ServiceFlight : IserviceFlight
+    public class ServiceFlight :Service<Flight> ,IserviceFlight 
     {
         public List<Flight> ListFlights { get; set; } = new List<Flight>();
 
@@ -155,7 +155,7 @@ namespace AM.ApplicationCore.Services
         }
         Action<Plane> FlightDetailsDel;
         Func<string, float> DurationAverageDel;
-        public ServiceFlight() {
+        public ServiceFlight(IUnitOfWork uow):base (uow) {
             FlightDetailsDel = plane =>
             {
                 var query = from f in ListFlights
